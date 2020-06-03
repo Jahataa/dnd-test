@@ -1,38 +1,39 @@
 import React from 'react';
-import { Droppable } from 'react-beautiful-dnd'
-import Task from './task'
+import { Droppable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
+import Task from './task';
 
 
-const containerStyle ={
-    border: `2px solid black`,
-    hight: `100%`,
-    width: '200px',
-    margin: `auto`,
-    padding: `20px`
+const Container = styled.div`
+    border: 2px solid black ;
+    hight: 100%;
+    width: 200px;
+    margin: auto;
+    padding: 20px;
 
-}
+`;
 
-const titleStyle ={
-    padding: `10px`
+const Title = styled.p`
+    padding: 10px;
+`;
 
-}
-
-const taskStyle ={
-    padding: `10px`,
-
-}
+const Tasks= styled.div`
+    background-color: 0.2s ease;
+    padding: 10px;
+    background: ${props =>(props.isDraggingOver ? 'rgba(248, 148, 6, 1)' : 'white')};
+`;
 
 export default class Column extends React.Component {
     render(){
         return (
-            <div style={containerStyle}>
-                <div style={titleStyle}>{this.props.column.title}</div>
+            <Container>
+                <Title>{this.props.column.title}</Title>
                 <Droppable droppableId={this.props.column.id}>
-                    { provided =>(
-                        <div 
-                            style={taskStyle}
+                    { (provided, snapshot) =>(
+                        <Tasks 
                             ref={provided.innerRef}
                             {...provided.droppableProps}
+                            isDraggingOver = {snapshot.isDraggingOver}
                             >
                             {this.props.tasks.map((task, index) => 
                                 <Task 
@@ -42,10 +43,10 @@ export default class Column extends React.Component {
                                     />
                                 )} 
                             {provided.placeholder}
-                        </div>
+                        </Tasks>
                     )}
                 </Droppable>
-            </div>
+            </Container>
         ) 
     }
 }
