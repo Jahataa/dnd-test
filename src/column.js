@@ -6,10 +6,12 @@ import Task from './task';
 
 const Container = styled.div`
     border: 2px solid black ;
-    hight: 100%;
+    border-radius: 2px;
     width: 200px;
-    margin: auto;
-    padding: 20px;
+    margin: 8px;
+
+    display: flex;
+    flex-direction: column;
 
 `;
 
@@ -18,9 +20,11 @@ const Title = styled.p`
 `;
 
 const Tasks= styled.div`
-    background-color: 0.2s ease;
     padding: 10px;
-    background: ${props =>(props.isDraggingOver ? 'rgba(248, 148, 6, 1)' : 'white')};
+    transition: background-color 0.2s ease;
+    background-color: ${props =>(props.isDraggingOver ? 'rgba(248, 148, 6, 1)' : 'white')};
+    flex-grow: 1;
+    min-hight: 100px;
 `;
 
 export default class Column extends React.Component {
